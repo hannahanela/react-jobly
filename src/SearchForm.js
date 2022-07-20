@@ -1,7 +1,7 @@
-import React ,{ useState } from "react";
+import React, { useState } from "react";
 
 /** SearchForm: renders basic search box.
- * 
+ *
  *  Props:
  *  - search fn: calls parent function to filter API request
  *
@@ -9,9 +9,9 @@ import React ,{ useState } from "react";
  */
 
 function SearchForm({ search }) {
-  const initialState = {name: ""};
+  const initialState = {};
   const [formData, setFormData] = useState(initialState);
-  console.log("In SearchForm", "State:",formData);
+  console.log("In SearchForm", "State:", formData);
 
   function handleChange(evt) {
     const { name, value } = evt.target;
@@ -23,7 +23,7 @@ function SearchForm({ search }) {
   }
 
   function handleSubmit(evt) {
-    console.log("In handleSubmit", formData);
+    console.log("In handleSubmit=", formData.search);
     evt.preventDefault();
     search(formData.search);
     setFormData(initialState);

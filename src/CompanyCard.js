@@ -1,8 +1,9 @@
 import React from "react";
 import CompanyDetails from "./CompanyDetails";
+import JobCard from "./JobCard";
 
 /** CompanyCard: renders a single company's information
- * 
+ *
  *  Props:
  *  - company: { handle, name, description, numEmployees, logoUrl, jobs }
  *      where jobs is [{ id, title, salary, equity }, ...]
@@ -17,6 +18,8 @@ function CompanyCard({ company }) {
     <div>
       <h1>{company.name}</h1>
       <p>{company.description}</p>
+      {company.job.map((company) => (
+        <JobCard /> }
     </div>
   );
 }

@@ -20,7 +20,7 @@ function CompanyList() {
     data: null,
     isLoading: true,
   });
-  console.log("In CompanyList", "State:", companiesData);
+  console.log("In CompanyList", "State:", companiesData.data);
 
   useEffect(function fetchcompaniesDetailsWhenMounted() {
     async function companiesDetails() {

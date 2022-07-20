@@ -1,6 +1,7 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 import SearchForm from "./SearchForm";
+import JoblyApi from "./api";
+import JobCard from "./JobCard";
 
 /** JobList: renders a list of jobs
  *
@@ -8,10 +9,44 @@ import SearchForm from "./SearchForm";
  */
 function JobList() {
   console.log("In JobList");
+  const [jobsData, setjobsData] = useState({
+    data: null,
+    isLoading: true,
+  });
+  console.log("In JobsList", "State:", jobsData.data);
+
+  useEffect(function fetchjobsDetailsWhenMounted() {
+    async function jobsDetails() {
+      let jobsResult = await JoblyApi.getJobs();
+      setjobsData({
+        data: jobsResult,
+        isLoading: false,
+      });
+    }
+    jobsDetails();
+  }, []);
+
+  function search(jobName) {
+    async function fetchjobsWithSearchQuery() {
+      let jobsResult = await JoblyApi.getjobsWithQuery(jobName);
+      setjobsData({
+        data: jobsResult,
+        isLoading: false,
+      });
+    }
+    fetchjobsWithSearchQuery();
+  }
+
+  if (jobsData.isLoading) return <i>Loading...</i>;
 
   return (
     <div>
-      <h1>jobs page</h1>
+      <SearchForm search={search} />
+      <div>
+        {jobsData.data.map((job) => (
+          <JobCard key={job.id} job={job} />
+        ))}
+      </div>
     </div>
   );
 }
