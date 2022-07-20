@@ -11,25 +11,32 @@ import JobList from "./JobList";
 function CompanyDetails() {
   const [companyData, setCompanyData] = useState({
     data: null,
-    isLoading: true
+    isLoading: true,
   });
   console.log("In CompanyDetails", "State:", companyData);
 
   const params = useParams();
+  console.log("params = ", params);
 
-  useEffect(function fetchCompanyDetailsWhenMounted() {
-    let companyResult = JoblyApi.getCompany(params);
-    setCompanyData({
-      data: companyResult.data,
-      isLoading: false
-    });
-  }, [params])
+  useEffect(
+    function fetchCompanyDetailsWhenMounted() {
+      async function CompanyDetails() {
+        let companyResult = await JoblyApi.getCompany(params.name);
+        setCompanyData({
+          data: companyResult,
+          isLoading: false,
+        });
+      }
+      CompanyDetails();
+    },
+    [params]
+  );
 
   if (companyData.isLoading) return <i>Loading...</i>;
 
   return (
     <div>
-      <JobList companyData={companyData}/>
+      <JobList companyData={companyData} />
     </div>
   );
 }
