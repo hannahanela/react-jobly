@@ -4,6 +4,9 @@ import JoblyApi from "./api";
 import JobList from "./JobList";
 
 /** CompanyDetails : renders a specific company page with jobs related to it
+ * 
+ *  State:
+ *  - companyData: { data: {company}, isLoading }
  *
  * JoblyRoutes -> CompanyDetails
  *

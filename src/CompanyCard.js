@@ -2,6 +2,10 @@ import React from "react";
 import CompanyDetails from "./CompanyDetails";
 
 /** CompanyCard: renders a single company's information
+ * 
+ *  Props:
+ *  - company: { handle, name, description, numEmployees, logoUrl, jobs }
+ *      where jobs is [{ id, title, salary, equity }, ...]
  *
  *  CompanyList -> CompanyCard
  */
