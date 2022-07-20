@@ -65,7 +65,7 @@ class JoblyApi {
     return res.job;
   }
 
-
+   // use _filterWhereBuilder to get jobs for one company
 }
 
 export { getCompany };
