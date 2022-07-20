@@ -11,6 +11,7 @@ import JobCard from "./JobCard";
  *  CompanyList -> CompanyCard
  */
 
+//TODO: when click on card go to company page
 function CompanyCard({ company }) {
   console.log("In CompanyCard");
 
@@ -18,8 +19,6 @@ function CompanyCard({ company }) {
     <div>
       <h1>{company.name}</h1>
       <p>{company.description}</p>
-      {company.job.map((company) => (
-        <JobCard /> }
     </div>
   );
 }
