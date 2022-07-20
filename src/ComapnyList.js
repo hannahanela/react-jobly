@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import CompanyCard from "./CompanyCard";
 import SearchForm from "./SearchForm";
 import JoblyApi from "./api";
 import "./CompanyCard.css";
 
-/** CompanyList: renders a list of Companys
+/** CompanyList: renders a list of Companies
  *
  *  State:
  *  - companiesData: { data: [{company}, ...], isLoading }
@@ -47,13 +46,15 @@ function CompanyList() {
   return (
     <div>
       <SearchForm search={search} />
-      {companiesData.data.map((company) => (
-        <Link to={`/companies/${company.handle}`}>
-          <div>
-          <CompanyCard key={company.handle} company={company} />
-          </div>
-        </Link>
-      ))}
+      <div>
+        {companiesData.data.length === 0 ? (
+          <p> Sorry, no results were found</p>
+        ) : (
+          companiesData.data.map((company) => (
+            <CompanyCard key={company.handle} company={company} />
+          ))
+        )}
+      </div>
     </div>
   );
 }

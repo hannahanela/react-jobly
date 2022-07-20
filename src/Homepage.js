@@ -5,7 +5,6 @@ import React from "react";
  *
  * JoblyRoutes -> Homepage
  */
-//TODO: homepage render console log, states console log bfr and after
 
 function Homepage() {
   console.log("In Homepage");

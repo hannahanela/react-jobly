@@ -1,6 +1,5 @@
 import React from "react";
-import CompanyDetails from "./CompanyDetails";
-import JobCard from "./JobCard";
+import { Link } from "react-router-dom";
 
 /** CompanyCard: renders a single company's information
  *
@@ -11,15 +10,22 @@ import JobCard from "./JobCard";
  *  CompanyList -> CompanyCard
  */
 
-//TODO: when click on card go to company page
 function CompanyCard({ company }) {
   // console.log("In CompanyCard");
 
   return (
-    <div>
-      <h1>{company.name}</h1>
-      <p>{company.description}</p>
-    </div>
+    <Link to={`/companies/${company.handle}`}>
+      <div>
+        {company.logoUrl ? (
+          <img src={company.logoUrl} alt={company.name}></img>
+        ) : (
+          <span></span>
+        )}
+
+        <h1>{company.name}</h1>
+        <p>{company.description}</p>
+      </div>
+    </Link>
   );
 }
 

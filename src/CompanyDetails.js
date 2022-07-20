@@ -39,6 +39,10 @@ function CompanyDetails() {
 
   return (
     <div>
+      <div>
+        <h1>{companyData.data.name}</h1>
+        <h1>{companyData.data.description}</h1>
+      </div>
       <JobCardList jobs={companyData.data.jobs} />
     </div>
   );

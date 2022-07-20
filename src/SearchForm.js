@@ -13,6 +13,7 @@ function SearchForm({ search }) {
   const [formData, setFormData] = useState(initialState);
   console.log("In SearchForm", "State:", formData);
 
+  /**handelChange : updates form input  */
   function handleChange(evt) {
     const { name, value } = evt.target;
     console.log("In handleChange", "name", name, "value", value);
@@ -21,12 +22,11 @@ function SearchForm({ search }) {
       [name]: value,
     }));
   }
-
+  /** handleSubmit : calls parent function to search for results */
   function handleSubmit(evt) {
     console.log("In handleSubmit=", formData.search);
     evt.preventDefault();
     search(formData.search);
-    setFormData(initialState);
   }
 
   return (

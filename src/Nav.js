@@ -5,13 +5,12 @@ import { NavLink } from "react-router-dom";
  *
  *
  *
- * App -> Nav
+ * App -> Nav -> {Homepage / , CompanyList /companies , JobsList /jobs }
  */
-//TODO: when active make it a different color using NavLink!
 
 function Nav() {
   console.log("In Nav");
-  
+
   return (
     <div>
       <nav className="NavBar">
