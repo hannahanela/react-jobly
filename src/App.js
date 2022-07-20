@@ -11,6 +11,7 @@ import { BrowserRouter } from "react-router-dom";
  */
 
 function App() {
+  console.log("In App");
   return (
     <div className="App">
       <header className="App-header">

@@ -11,6 +11,8 @@ import JobList from "./JobList";
  */
 
 function JoblyRoutes() {
+  console.log("In JoblyRoutes");
+
   return (
     <Routes>
       <Route path="/" element={<Homepage />} />

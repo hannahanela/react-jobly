@@ -10,6 +10,8 @@ import { Link } from "react-router-dom";
 //TODO: when active make it a different color using NavLink!
 
 function Nav() {
+  console.log("In Nav");
+  
   return (
     <div>
       <nav className="NavBar">

@@ -8,6 +8,8 @@ import React from "react";
 //TODO: homepage render console log, states console log bfr and after
 
 function Homepage() {
+  console.log("In Homepage");
+
   return (
     <div>
       <h1>Welcome to Jobly</h1>

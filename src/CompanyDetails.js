@@ -1,5 +1,6 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useState, useParams } from "react-router-dom";
+import getCompany from "./api";
 
 /** CompanyDetails : renders a specific company page with jobs related to it
  *
@@ -7,11 +8,27 @@ import { useParams } from "react-router-dom";
  *
  */
 function CompanyDetails() {
+  const [companyData, setCompanyData] = useState({
+    data: null,
+    isLoading: true
+  });
+  console.log("In CompanyDetails", "State:", companyData);
+
   const params = useParams();
+
+  useEffect(function fetchCompanyDetailsWhenMounted() {
+    let companyResult = getCompany(params);
+    setCompanyData({
+      data: companyResult.data,
+      isLoading: false
+    });
+  }, [params])
+
+  if (companyData.isLoading) return <i>Loading...</i>;
 
   return (
     <div>
-      <h1>company</h1>
+      <JobList companyData={companyData}/>
     </div>
   );
 }
