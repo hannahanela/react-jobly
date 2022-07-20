@@ -1,6 +1,7 @@
-import React from "react";
-import { useState, useParams } from "react-router-dom";
-import getCompany from "./api";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import JoblyApi from "./api";
+import JobList from "./JobList";
 
 /** CompanyDetails : renders a specific company page with jobs related to it
  *
@@ -17,7 +18,7 @@ function CompanyDetails() {
   const params = useParams();
 
   useEffect(function fetchCompanyDetailsWhenMounted() {
-    let companyResult = getCompany(params);
+    let companyResult = JoblyApi.getCompany(params);
     setCompanyData({
       data: companyResult.data,
       isLoading: false

@@ -68,4 +68,4 @@ class JoblyApi {
    // use _filterWhereBuilder to get jobs for one company
 }
 
-export { getCompany };
+export default JoblyApi;
