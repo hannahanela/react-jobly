@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
 import SearchForm from "./SearchForm";
 import JoblyApi from "./api";
-import JobCard from "./JobCard";
+import JobCardList from "./JobCardList";
 
 /** JobList: renders a list of jobs
+ *  
+ *  State:
+ *  - jobsData: {jobs: [ {job}, ...], isLoading}
  *
  *  JoblyRoutes -> JobList
  */
@@ -43,9 +46,7 @@ function JobList() {
     <div>
       <SearchForm search={search} />
       <div>
-        {jobsData.data.map((job) => (
-          <JobCard key={job.id} job={job} />
-        ))}
+        <JobCardList jobs={jobsData.data}/>
       </div>
     </div>
   );

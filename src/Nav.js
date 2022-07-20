@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 /** Nav: links to jobs, companies and homepage
  *
@@ -15,9 +15,9 @@ function Nav() {
   return (
     <div>
       <nav className="NavBar">
-        <Link to={`/`}> Jobly </Link>
-        <Link to={`/companies`}> Companies</Link>
-        <Link to={`/jobs`}> Jobs </Link>
+        <NavLink to={`/`}> Jobly </NavLink>
+        <NavLink to={`/companies`}> Companies</NavLink>
+        <NavLink to={`/jobs`}> Jobs </NavLink>
       </nav>
     </div>
   );

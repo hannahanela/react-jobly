@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import JoblyApi from "./api";
-import JobList from "./JobList";
+import JobCardList from "./JobCardList";
 
 /** CompanyDetails : renders a specific company page with jobs related to it
  *
  *  State:
  *  - companyData: { data: {company}, isLoading }
  *
- * JoblyRoutes -> CompanyDetails
+ * JoblyRoutes -> CompanyDetails -> JobCardList
  *
  */
 function CompanyDetails() {
@@ -39,7 +39,7 @@ function CompanyDetails() {
 
   return (
     <div>
-      <JobList companyData={companyData} />
+      <JobCardList jobs={companyData.data.jobs} />
     </div>
   );
 }

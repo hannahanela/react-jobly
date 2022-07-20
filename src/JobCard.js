@@ -1,6 +1,13 @@
 import React from "react";
 import "./JobCard";
 
+/** JobCard: displays job details.
+ * 
+ *  Prop:
+ *  - job: {title, salary, equity, companyName} or {title, salary, equity}
+ * 
+ *  JobCardList -> JobCard
+ */
 function JobCard({ job }) {
   return (
     <div>

@@ -13,7 +13,7 @@ import JobCard from "./JobCard";
 
 //TODO: when click on card go to company page
 function CompanyCard({ company }) {
-  console.log("In CompanyCard");
+  // console.log("In CompanyCard");
 
   return (
     <div>
