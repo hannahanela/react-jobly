@@ -6,7 +6,7 @@ import "./CompanyCard.css";
 
 /** CompanyList: renders a list of Companies
  *
- *  State:
+ *  State:                    TODO: whats inside company
  *  - companiesData: { data: [{company}, ...], isLoading }
  *
  *  JoblyRoutes -> CompanyList -> CompanyCard
@@ -21,6 +21,7 @@ function CompanyList() {
 
   useEffect(function fetchcompaniesDetailsWhenMounted() {
     async function companiesDetails() {
+      //TODO: different name
       let companiesResult = await JoblyApi.getCompanies();
       setCompaniesData({
         data: companiesResult,

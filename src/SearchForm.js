@@ -32,7 +32,7 @@ function SearchForm({ search }) {
   return (
     <form onSubmit={handleSubmit}>
       <input
-        name="search"
+        name="search" //TODO: searchTerm
         placeholder="Enter search term"
         onChange={handleChange}
       />

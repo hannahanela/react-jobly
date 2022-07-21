@@ -5,12 +5,13 @@ import JobCardList from "./JobCardList";
 
 /** JobList: renders a list of jobs
  *
- *  State:
+ *  State:              //TODO: what job is
  *  - jobsData: {jobs: [ {job}, ...], isLoading}
  *
  *  JoblyRoutes -> JobList
  */
 function JobList() {
+  //TODO: change the state (jobsData) to jobs
   const [jobsData, setJobsData] = useState({
     data: null,
     isLoading: true,
