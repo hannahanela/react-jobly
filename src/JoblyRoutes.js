@@ -4,13 +4,16 @@ import Homepage from "./Homepage";
 import CompanyDetails from "./CompanyDetails";
 import CompanyList from "./ComapnyList";
 import JobList from "./JobList";
+import LoginForm from "./LoginForm";
+import SignupForm from "./SignupForm";
+import ProfileForm from "./ProfileForm";
 
 /** JoblyRoutes: handles routes to the components in Jobly app
  *
  * App -> JoblyRoutes -> {Homepage, CompanyList, CompanyDetails, JobList }
  */
 
-function JoblyRoutes() {
+function JoblyRoutes({ updateUser, login, register }) {
   console.log("In JoblyRoutes");
 
   return (
@@ -19,6 +22,12 @@ function JoblyRoutes() {
       <Route path="/companies" element={<CompanyList />} />
       <Route path="/companies/:name" element={<CompanyDetails />} />
       <Route path="/jobs" element={<JobList />} />
+      <Route path="/login" element={<LoginForm login={login} />} />
+      <Route path="/signup" element={<SignupForm register={register} />} />
+      <Route
+        path="/profile"
+        element={<ProfileForm updateUser={updateUser} />}
+      />
       <Route path="*" element={<Navigate to="/" />} />
     </Routes>
   );

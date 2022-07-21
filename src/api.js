@@ -79,7 +79,9 @@ class JoblyApi {
     return res.job;
   }
 
-  // use _filterWhereBuilder to get jobs for one company
+  static async login(user) {
+    let res = await this.request(`/users/`);
+  }
 }
 
 export default JoblyApi;
