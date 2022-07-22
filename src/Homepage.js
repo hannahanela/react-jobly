@@ -12,6 +12,7 @@ function Homepage() {
   return (
     <div>
       <h1>Welcome to Jobly</h1>
+      <h1> welcome {</h1>
     </div>
   );
 }

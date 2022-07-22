@@ -13,7 +13,7 @@ import ProfileForm from "./ProfileForm";
  * App -> JoblyRoutes -> {Homepage, CompanyList, CompanyDetails, JobList }
  */
 
-function JoblyRoutes({ updateUser, login, register }) {
+function JoblyRoutes({ updateUser, login, signup }) {
   console.log("In JoblyRoutes");
 
   return (
@@ -23,7 +23,7 @@ function JoblyRoutes({ updateUser, login, register }) {
       <Route path="/companies/:name" element={<CompanyDetails />} />
       <Route path="/jobs" element={<JobList />} />
       <Route path="/login" element={<LoginForm login={login} />} />
-      <Route path="/signup" element={<SignupForm register={register} />} />
+      <Route path="/signup" element={<SignupForm signup={signup} />} />
       <Route
         path="/profile"
         element={<ProfileForm updateUser={updateUser} />}

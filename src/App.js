@@ -5,13 +5,13 @@ import JoblyRoutes from "./JoblyRoutes";
 import { BrowserRouter } from "react-router-dom";
 import userContext from "./userContext";
 import JoblyApi from "./api";
-
+import jwt_decode from "jwt-decode";
 /** App : handles rendering the navigation bar
  *
  *  State:
  *  - currUser: { TODO: user object }
  *  - token
- * 
+ *
  *  Context:
  *  - userData: first name, username, apply/applied
  *
@@ -22,18 +22,20 @@ const DEFAULT_USER = {};
 function App() {
   //{useanme ; fstname ;lastname ;passpwrd ,email}
   const [currUser, setCurrUser] = useState(DEFAULT_USER);
-  const [token, setToken] = useState('')
+  const [token, setToken] = useState("");
 
   //useEffect will change the user using the token ? to update user
   // TODO: username input value from form
   useEffect(
     function getUserDataWithToken() {
       async function fetchUserDataWithToken() {
-      let userResult = await JoblyApi.getUserData(username, token);
-      setCurrUser(userResult);
+        var decoded = jwt_decode(token);
+        let userResult = await JoblyApi.getUserData(decoded.username, token);
+        setCurrUser(userResult);
       }
       fetchUserDataWithToken();
-    }, [token]
+    },
+    [token]
   );
 
   // TODO: PASS THESE TO APPROPRIATE FORMS
@@ -41,45 +43,50 @@ function App() {
   // set token
 
   /** Login a user and update token. */
-  function login(username, password){
-    try {
-      let newToken = await JoblyAPI.getTokenForCurrUser(username, password);
-      setToken(newToken)
-    } catch(err) {
-      // TODO render error
-    }
-    }
 
+  function login(username, password) {
+    async function fetchTokenFromLogin() {
+      try {
+        let newToken = await JoblyApi.getTokenForCurrUser(username, password);
+        setToken(newToken);
+      } catch (err) {
+        // TODO render error
+      }
+    }
+    fetchTokenFromLogin(username, password);
   }
 
   /** Logout a user and remove token. */
   function logout(evt) {
-    evt.PreventDefault;
+    evt.PreventDefault();
     // handle click
-    setToken('');
+    setToken("");
   }
 
   /** Signup a new user and update token. */
   // will be passed an object ******
   function signup(userData) {
-    let newToken = await JoblyApi.register(userData);
-    if(newToken.error !== undefined){
-      setToken(newToken)
-      // TODO: render error
+    async function fetchTokenWithSignup(userData) {
+      try {
+        let newToken = await JoblyApi.getTokenForNewUser(userData);
+        setToken(newToken);
+        // TODO: render error
+      } catch (err) {}
+    }
+    fetchTokenWithSignup(userData);
   }
-
 
   console.log("In App");
   return (
     <div className="App">
       <header className="App-header">
-        <userContext.Provider value={{ user }}>
+        <userContext.Provider value={{ currUser }}>
           <BrowserRouter>
-            <Nav logout={logout}/>
+            <Nav logout={logout} />
             <JoblyRoutes
-              updateUser={updateUser}
+              // updateUser={updateUser}
               login={login}
-              register={signup}
+              signup={signup}
             />
           </BrowserRouter>
         </userContext.Provider>

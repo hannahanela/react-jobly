@@ -8,10 +8,11 @@ import React, { useState } from "react";
  *  { CompanyList, JobList } -> SearchForm
  */
 
-function SignupForm({ SignUp }) {
+function SignupForm({ signup }) {
   const initialState = {};
   const [formData, setFormData] = useState(initialState);
   console.log("In SignUpForm", "State:", formData);
+  console.log("in signupForm", "signup = ", signup);
 
   /**handelChange : updates form input  */
   function handleChange(evt) {
@@ -23,46 +24,36 @@ function SignupForm({ SignUp }) {
     }));
   }
 
-  function createUser(username) {
-    /// call api to create a user
-    /// return a user { ;;;}
-  }
-
   /** handleSubmit : calls parent function to SignUp for results */
   function handleSubmit(evt) {
     console.log("In handleSubmit=", formData.SignUp);
     evt.preventDefault();
-    let user = createUser(formData);
-    SignUp(formData.SignUp);
+    signup(formData);
   }
 
   return (
     <form onSubmit={handleSubmit}>
       <input
         name="username"
-        placeholder="Enter SignUp term"
+        placeholder="Enter username"
         onChange={handleChange}
       />
       <input
         name="password"
-        placeholder="Enter SignUp term"
+        placeholder="Enter password"
         onChange={handleChange}
       />
       <input
-        name="first-name"
-        placeholder="Enter SignUp term"
+        name="firstName"
+        placeholder="Enter first name"
         onChange={handleChange}
       />
       <input
-        name="last-name"
-        placeholder="Enter SignUp term"
+        name="lastName"
+        placeholder="Enter last name"
         onChange={handleChange}
       />
-      <input
-        name="email"
-        placeholder="Enter SignUp term"
-        onChange={handleChange}
-      />
+      <input name="email" placeholder="Enter email" onChange={handleChange} />
       <button>Submit</button>
     </form>
   );
