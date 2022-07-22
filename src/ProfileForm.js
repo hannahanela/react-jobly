@@ -2,17 +2,25 @@ import React, { useState } from "react";
 import { useContext } from "react";
 import userContext from "./userContext";
 import Alert from "./Alert";
+import { useNavigate } from "react-router-dom";
 
 /** ProfileForm: renders basic Profile box.
+ * //TODO: update docstring formdata
+ * states:
+ *  = error : an array of error messages
  *
  *  Props:
  *  - editProfile fn: calls parent function to update currUser using an
  *    API request
  *
+ *  context:
+ *  - currUser : currently logged in user (object)
+ *
  *  { CompanyList, JobList } -> ProfileForm
  */
 
 function ProfileForm({ editProfile }) {
+  const navigate = useNavigate();
   const { currUser } = useContext(userContext);
   const initialState = currUser;
   const [formData, setFormData] = useState(initialState);
@@ -36,7 +44,8 @@ function ProfileForm({ editProfile }) {
     evt.preventDefault();
     try {
       await editProfile(formData);
-    } catch(err) {
+      navigate("/");
+    } catch (err) {
       setError(err);
     }
   }

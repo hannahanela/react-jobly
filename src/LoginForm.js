@@ -1,7 +1,12 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Alert from "./Alert";
 
 /** loginForm: renders basic login box.
+ *
+ *  states:
+ * //TODO: update states (form data)
+ *  = error : an array of error messages
  *
  *  Props:
  *  - login fn: calls parent function to filter API request
@@ -10,7 +15,8 @@ import Alert from "./Alert";
  */
 
 function LoginForm({ login }) {
-  const initialState = {};
+  const navigate = useNavigate();
+  const initialState = { username: "", password: "" };
   const [formData, setFormData] = useState(initialState);
   const [error, setError] = useState([]);
   console.log("In LoginForm", "State:", formData, error);
@@ -31,7 +37,9 @@ function LoginForm({ login }) {
     evt.preventDefault();
     try {
       await login(formData.username, formData.password);
-    } catch(err) {
+      setFormData(initialState);
+      navigate("/");
+    } catch (err) {
       console.log("err=", err);
       setError(err);
     }
@@ -43,12 +51,15 @@ function LoginForm({ login }) {
         name="username"
         placeholder="Enter username"
         onChange={handleChange}
+        value={formData.username}
       />
       <input
         name="password"
         password="password"
+        type="password"
         placeholder="Enter password"
         onChange={handleChange}
+        value={formData.password}
       />
       {error.length !== 0 && <Alert error={error} />}
       <button>Submit</button>

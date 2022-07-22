@@ -5,23 +5,22 @@ import JobCardList from "./JobCardList";
 
 /** JobList: renders a list of jobs
  *
- *  State:              //TODO: what job is
- *  - jobsData: {jobs: [ {job}, ...], isLoading}
+ *  State:
+ *  - jobs: {jobs: [ {job}, ...], isLoading}
  *
  *  JoblyRoutes -> JobList
  */
 function JobList() {
-  //TODO: change the state (jobsData) to jobs
-  const [jobsData, setJobsData] = useState({
+  const [jobs, setJobs] = useState({
     data: null,
     isLoading: true,
   });
-  console.log("In JobsList", "State:", jobsData.data);
+  console.log("In JobsList", "State:", jobs.data);
 
   useEffect(function fetchJobsDetailsWhenMounted() {
     async function jobsDetails() {
       let jobsResult = await JoblyApi.getJobs();
-      setJobsData({
+      setJobs({
         data: jobsResult,
         isLoading: false,
       });
@@ -33,7 +32,7 @@ function JobList() {
   function search(jobTitle) {
     async function fetchJobsWithSearchQuery() {
       let jobsResult = await JoblyApi.getJobsWithQuery(jobTitle);
-      setJobsData({
+      setJobs({
         data: jobsResult,
         isLoading: false,
       });
@@ -41,16 +40,16 @@ function JobList() {
     fetchJobsWithSearchQuery();
   }
 
-  if (jobsData.isLoading) return <i>Loading...</i>;
+  if (jobs.isLoading) return <i>Loading...</i>;
 
   return (
     <div>
       <SearchForm search={search} />
       <div>
-        {jobsData.data.length === 0 ? (
+        {jobs.data.length === 0 ? (
           <p> Sorry, no results were found</p>
         ) : (
-          <JobCardList jobs={jobsData.data} />
+          <JobCardList jobs={jobs.data} />
         )}
       </div>
     </div>

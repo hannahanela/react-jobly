@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import Alert from "./Alert";
+import { useNavigate } from "react-router-dom";
 
 /** SearchForm: renders basic search box.
  *
- *  State:
- *  - error
+ *  States:
+ *  = error : an array of error messages
+ *  - formData :
  *
  *  Props:
  *  - search fn: calls parent function to filter API request
@@ -13,6 +15,8 @@ import Alert from "./Alert";
  */
 
 function SignupForm({ signup }) {
+  const navigate = useNavigate();
+  //TODO: update intialstate
   const initialState = {};
   const [formData, setFormData] = useState(initialState);
   const [error, setError] = useState([]);
@@ -35,6 +39,7 @@ function SignupForm({ signup }) {
     evt.preventDefault();
     try {
       await signup(formData);
+      navigate("/");
     } catch (err) {
       setError(err);
     }
@@ -50,6 +55,7 @@ function SignupForm({ signup }) {
       <input
         name="password"
         placeholder="Enter password"
+        type="password"
         onChange={handleChange}
       />
       <input

@@ -11,11 +11,11 @@ import { useContext } from "react";
 import userContext from "./userContext";
 
 /** JoblyRoutes: handles routes to the components in Jobly app
- * 
+ *
  *  Props:
  *  - login fn
  *  - signup fn
- *  - editProile
+ *  - editProfile
  *
  * App -> JoblyRoutes -> {Homepage, CompanyList, CompanyDetails, JobList }
  */
@@ -34,10 +34,10 @@ function JoblyRoutes({ login, signup, editProfile }) {
       <Route path="/login" element={<LoginForm login={login} />} />
       <Route path="/signup" element={<SignupForm signup={signup} />} />
       {currUser !== null && (
-          <Route
-            path="/profile"
-            element={<ProfileForm editProfile={editProfile} />}
-          />
+        <Route
+          path="/profile"
+          element={<ProfileForm editProfile={editProfile} />}
+        />
       )}
       <Route path="*" element={<Navigate to="/login" />} />
     </Routes>

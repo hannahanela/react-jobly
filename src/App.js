@@ -30,14 +30,13 @@ function App() {
   useEffect(
     function getUserDataWithToken() {
       async function fetchUserDataWithToken() {
-        var decoded = jwt_decode(token);
+        //destructure decoded {username}
+        let decoded = jwt_decode(token);
         let userResult = await JoblyApi.getUserData(decoded.username, token);
         setCurrUser(userResult);
       }
       if (token !== "") {
         fetchUserDataWithToken();
-      } else {
-        return;
       }
     },
     [token]
@@ -53,7 +52,7 @@ function App() {
   /** Logout a user and remove token. */
   function logout(evt) {
     evt.PreventDefault();
-    setCurrUser({});
+    setCurrUser(DEFAULT_USER);
     setToken("");
   }
 

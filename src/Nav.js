@@ -7,7 +7,8 @@ import userContext from "./userContext";
  *  Props:
  *  - logout fn
  *
- * App -> Nav -> {Homepage / , CompanyList /companies , JobsList /jobs }
+ * App -> Nav -> {Homepage / , CompanyList /companies , JobsList /jobs
+ *                SignupForm /signup, LoginForm /login, ProfileForm /profile}
  */
 
 function Nav({ logout }) {
@@ -29,6 +30,7 @@ function Nav({ logout }) {
           </div>
         ) : (
           <div>
+            <NavLink to={`/`}> Jobly </NavLink>
             <NavLink to={`/login`}>Login</NavLink>
             <NavLink to={`/signup`}>Signup</NavLink>
           </div>

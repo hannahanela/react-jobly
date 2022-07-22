@@ -6,8 +6,9 @@ import "./CompanyCard.css";
 
 /** CompanyList: renders a list of Companies
  *
- *  State:                    TODO: whats inside company
- *  - companiesData: { data: [{company}, ...], isLoading }
+ *  State:
+ *  - companiesData: {data: [{ handle, name, description, numEmployees, logoUrl}
+ *     , ...],isLoading }
  *
  *  JoblyRoutes -> CompanyList -> CompanyCard
  */
@@ -19,16 +20,15 @@ function CompanyList() {
   });
   console.log("In CompanyList", "State:", companiesData.data);
 
-  useEffect(function fetchcompaniesDetailsWhenMounted() {
-    async function companiesDetails() {
-      //TODO: different name
+  useEffect(function fetchCompaniesDataWhenMounted() {
+    async function fetchCompaniesData() {
       let companiesResult = await JoblyApi.getCompanies();
       setCompaniesData({
         data: companiesResult,
         isLoading: false,
       });
     }
-    companiesDetails();
+    fetchCompaniesData();
   }, []);
 
   function search(companyName) {
