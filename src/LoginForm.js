@@ -38,7 +38,7 @@ function LoginForm({ login }) {
     try {
       await login(formData.username, formData.password);
       setFormData(initialState);
-      navigate("/");
+      navigate("/companies");
     } catch (err) {
       console.log("err=", err);
       setError(err);

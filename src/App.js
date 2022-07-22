@@ -24,18 +24,23 @@ const DEFAULT_USER = null;
 
 function App() {
   const [currUser, setCurrUser] = useState(DEFAULT_USER);
-  const [token, setToken] = useState("");
-  console.log("In App", "state:", currUser, token);
+  console.log("In App", "state:", currUser);
+  let token = localStorage.getItem("token");
+  console.log("token in localStorage=", token);
 
   useEffect(
     function getUserDataWithToken() {
       async function fetchUserDataWithToken() {
-        //destructure decoded {username}
-        let decoded = jwt_decode(token);
-        let userResult = await JoblyApi.getUserData(decoded.username, token);
+        // TODO: destructure decoded {username}
+        const storedToken = localStorage.getItem("token");
+        let decoded = jwt_decode(storedToken);
+        let userResult = await JoblyApi.getUserData(
+          decoded.username,
+          storedToken
+        );
         setCurrUser(userResult);
       }
-      if (token !== "") {
+      if (token !== undefined) {
         fetchUserDataWithToken();
       }
     },
@@ -46,28 +51,38 @@ function App() {
 
   async function login(username, password) {
     let newToken = await JoblyApi.getTokenForCurrUser(username, password);
-    setToken(newToken);
+    localStorage.setItem("token", `${newToken}`);
+    console.log("token?", localStorage.getItem("token"));
+    // TODO: original code w/ token state
+    // setToken(newToken);
   }
 
   /** Logout a user and remove token. */
   function logout(evt) {
-    evt.PreventDefault();
+    console.log("INSIDE LOGOUT!!!!");
+    evt.preventDefault();
+    localStorage.setItem("token", undefined);
+    console.log("remove token?", localStorage.getItem("token"));
+    // TODO: original code w/ token state
+    // setToken('');
     setCurrUser(DEFAULT_USER);
-    setToken("");
   }
 
   /** Signup a new user and update token. */
   // will be passed an object ******
   async function signup(userData) {
     let newToken = await JoblyApi.getTokenForNewUser(userData);
-    setToken(newToken);
+    localStorage.setItem("token", `${newToken}`);
+    // TODO: original code w/ token state
+    // setToken(newToken);
   }
 
   /** editProfile takes user data changes user information to
    * the newly inputted ones
    */
   async function editProfile(userData) {
-    let updatedUser = await JoblyApi.updateUser(userData, token);
+    const storedToken = localStorage.getItem("token");
+    let updatedUser = await JoblyApi.updateUser(userData, storedToken);
     setCurrUser(updatedUser);
   }
 

@@ -39,7 +39,7 @@ function SignupForm({ signup }) {
     evt.preventDefault();
     try {
       await signup(formData);
-      navigate("/");
+      navigate("/companies");
     } catch (err) {
       setError(err);
     }
