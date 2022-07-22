@@ -1,6 +1,10 @@
 import React, { useState } from "react";
+import Alert from "./Alert";
 
 /** SearchForm: renders basic search box.
+ *
+ *  State:
+ *  - error
  *
  *  Props:
  *  - search fn: calls parent function to filter API request
@@ -11,6 +15,7 @@ import React, { useState } from "react";
 function SignupForm({ signup }) {
   const initialState = {};
   const [formData, setFormData] = useState(initialState);
+  const [error, setError] = useState([]);
   console.log("In SignUpForm", "State:", formData);
   console.log("in signupForm", "signup = ", signup);
 
@@ -25,10 +30,14 @@ function SignupForm({ signup }) {
   }
 
   /** handleSubmit : calls parent function to SignUp for results */
-  function handleSubmit(evt) {
+  async function handleSubmit(evt) {
     console.log("In handleSubmit=", formData.SignUp);
     evt.preventDefault();
-    signup(formData);
+    try {
+      await signup(formData);
+    } catch (err) {
+      setError(err);
+    }
   }
 
   return (
@@ -54,6 +63,7 @@ function SignupForm({ signup }) {
         onChange={handleChange}
       />
       <input name="email" placeholder="Enter email" onChange={handleChange} />
+      {error.length !== 0 && <Alert error={error} />}
       <button>Submit</button>
     </form>
   );

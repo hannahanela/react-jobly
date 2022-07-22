@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useContext } from "react";
 import userContext from "./userContext";
+import Alert from "./Alert";
 
 /** ProfileForm: renders basic Profile box.
  *
@@ -15,6 +16,8 @@ function ProfileForm({ editProfile }) {
   const { currUser } = useContext(userContext);
   const initialState = currUser;
   const [formData, setFormData] = useState(initialState);
+  const [error, setError] = useState([]);
+
   console.log("In ProfileForm", "State:", formData);
 
   /**handelChange : updates form input  */
@@ -26,40 +29,46 @@ function ProfileForm({ editProfile }) {
       [name]: value,
     }));
   }
+
   /** handleSubmit : calls parent function to Profile for results */
-  function handleSubmit(evt) {
+  async function handleSubmit(evt) {
     console.log("In handleSubmit=", formData);
     evt.preventDefault();
-    editProfile(formData);
+    try {
+      await editProfile(formData);
+    } catch(err) {
+      setError(err);
+    }
   }
 
   return (
     <form onSubmit={handleSubmit}>
       <input
-        name="username" //TODO: add a feature to make it (can't change)
+        name="username"
         placeholder="Enter username"
-        value={currUser.username}
+        value={formData.username}
         onChange={handleChange}
         disabled="disabled"
       />
       <input
         name="firstName"
         placeholder="Enter first name"
-        value={currUser.firstName}
+        value={formData.firstName}
         onChange={handleChange}
       />
       <input
         name="lastName"
         placeholder="Enter last name"
         onChange={handleChange}
-        value={currUser.lastName}
+        value={formData.lastName}
       />
       <input
-        password="email"
+        name="email"
         placeholder="Enter email"
+        value={formData.email}
         onChange={handleChange}
-        value={currUser.email}
       />
+      {error.length !== 0 && <Alert error={error} />}
       <button>Save Changes</button>
     </form>
   );

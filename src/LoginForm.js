@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Alert from "./Alert";
 
 /** loginForm: renders basic login box.
  *
@@ -11,7 +12,8 @@ import React, { useState } from "react";
 function LoginForm({ login }) {
   const initialState = {};
   const [formData, setFormData] = useState(initialState);
-  console.log("In LoginForm", "State:", formData);
+  const [error, setError] = useState([]);
+  console.log("In LoginForm", "State:", formData, error);
 
   /**handelChange : updates form input  */
   function handleChange(evt) {
@@ -24,10 +26,15 @@ function LoginForm({ login }) {
   }
 
   /** handleSubmit : calls parent function to login for results */
-  function handleSubmit(evt) {
+  async function handleSubmit(evt) {
     console.log("In handleSubmit=", formData);
     evt.preventDefault();
-    login(formData.username, formData.password);
+    try {
+      await login(formData.username, formData.password);
+    } catch(err) {
+      console.log("err=", err);
+      setError(err);
+    }
   }
 
   return (
@@ -43,6 +50,7 @@ function LoginForm({ login }) {
         placeholder="Enter password"
         onChange={handleChange}
       />
+      {error.length !== 0 && <Alert error={error} />}
       <button>Submit</button>
     </form>
   );

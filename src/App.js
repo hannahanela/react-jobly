@@ -6,10 +6,14 @@ import { BrowserRouter } from "react-router-dom";
 import userContext from "./userContext";
 import JoblyApi from "./api";
 import jwt_decode from "jwt-decode";
+
+const DEFAULT_USER = null;
+
 /** App : handles rendering the navigation bar
  *
  *  State:
- *  - currUser: { TODO: user object }
+ *  - currUser: { username, firstName, lastName, isAdmin, jobs }
+ *        where jobs is { id, title, companyHandle, companyName, state }
  *  - token
  *
  *  Context:
@@ -17,16 +21,12 @@ import jwt_decode from "jwt-decode";
  *
  * App ->{Nav, JoblyRoutes}
  */
-const DEFAULT_USER = "";
 
 function App() {
-  //{useanme ; fstname ;lastname ;passpwrd ,email}
   const [currUser, setCurrUser] = useState(DEFAULT_USER);
   const [token, setToken] = useState("");
   console.log("In App", "state:", currUser, token);
 
-  //useEffect will change the user using the token ? to update user
-  // TODO: username input value from form
   useEffect(
     function getUserDataWithToken() {
       async function fetchUserDataWithToken() {
@@ -43,20 +43,11 @@ function App() {
     [token]
   );
 
-  // FIXME: what's going on with our currUser context??
-
   /** Login a user and update token. */
 
-  function login(username, password) {
-    async function fetchTokenFromLogin() {
-      try {
-        let newToken = await JoblyApi.getTokenForCurrUser(username, password);
-        setToken(newToken);
-      } catch (err) {
-        // TODO render error
-      }
-    }
-    fetchTokenFromLogin(username, password);
+  async function login(username, password) {
+    let newToken = await JoblyApi.getTokenForCurrUser(username, password);
+    setToken(newToken);
   }
 
   /** Logout a user and remove token. */
@@ -68,28 +59,17 @@ function App() {
 
   /** Signup a new user and update token. */
   // will be passed an object ******
-  function signup(userData) {
-    async function fetchTokenWithSignup(userData) {
-      try {
-        let newToken = await JoblyApi.getTokenForNewUser(userData);
-        setToken(newToken);
-        // TODO: render error
-      } catch (err) {}
-    }
-    fetchTokenWithSignup(userData);
+  async function signup(userData) {
+    let newToken = await JoblyApi.getTokenForNewUser(userData);
+    setToken(newToken);
   }
 
   /** editProfile takes user data changes user information to
    * the newly inputted ones
    */
-  function editProfile(userData) {
-    async function fetchEditProfile(userData) {
-      try {
-        let updatedUser = await JoblyApi.updateUser(userData);
-        setCurrUser(updatedUser);
-      } catch (err) {}
-    }
-    fetchEditProfile(userData);
+  async function editProfile(userData) {
+    let updatedUser = await JoblyApi.updateUser(userData, token);
+    setCurrUser(updatedUser);
   }
 
   return (
