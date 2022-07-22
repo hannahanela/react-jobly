@@ -103,6 +103,16 @@ class JoblyApi {
     );
     return res.token;
   }
+
+  static async updateUser(userData) {
+    let { username, firstName, lastName, email } = userData;
+    let res = await this.request(
+      `users/${username}`,
+      { firstName, lastName, email },
+      "patch"
+    );
+    return res.user;
+  }
 }
 
 export default JoblyApi;

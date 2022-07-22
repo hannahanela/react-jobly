@@ -23,7 +23,10 @@ function Nav({ logout }) {
             <NavLink to={`/`}> Jobly </NavLink>
             <NavLink to={`/companies`}> Companies</NavLink>
             <NavLink to={`/jobs`}> Jobs </NavLink>
-            <NavLink to={`/`}>Log out {currUser.username}</NavLink>
+            <NavLink to={`/profile`}> Profile </NavLink>
+            <NavLink to={`/`} onClick={logout}>
+              Log out {currUser.username}
+            </NavLink>
           </div>
         ) : (
           <div>

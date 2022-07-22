@@ -1,15 +1,19 @@
 import React, { useState } from "react";
+import { useContext } from "react";
+import userContext from "./userContext";
 
 /** ProfileForm: renders basic Profile box.
  *
  *  Props:
- *  - Profile fn: calls parent function to filter API request
+ *  - editProfile fn: calls parent function to update currUser using an
+ *    API request
  *
  *  { CompanyList, JobList } -> ProfileForm
  */
 
-function ProfileForm({ Profile }) {
-  const initialState = {};
+function ProfileForm({ editProfile }) {
+  const { currUser } = useContext(userContext);
+  const initialState = currUser;
   const [formData, setFormData] = useState(initialState);
   console.log("In ProfileForm", "State:", formData);
 
@@ -24,9 +28,9 @@ function ProfileForm({ Profile }) {
   }
   /** handleSubmit : calls parent function to Profile for results */
   function handleSubmit(evt) {
-    console.log("In handleSubmit=", formData.Profile);
+    console.log("In handleSubmit=", formData);
     evt.preventDefault();
-    Profile(formData.Profile);
+    editProfile(formData);
   }
 
   return (
@@ -34,22 +38,27 @@ function ProfileForm({ Profile }) {
       <input
         name="username" //TODO: add a feature to make it (can't change)
         placeholder="Enter username"
+        value={currUser.username}
+        onChange={handleChange}
+        disabled="disabled"
+      />
+      <input
+        name="firstName"
+        placeholder="Enter first name"
+        value={currUser.firstName}
         onChange={handleChange}
       />
       <input
-        password="first-name"
-        placeholder="Entir first" //TODO: add in value (user info)
+        name="lastName"
+        placeholder="Enter last name"
         onChange={handleChange}
-      />
-      <input
-        password="last-name"
-        placeholder="Enter password"
-        onChange={handleChange}
+        value={currUser.lastName}
       />
       <input
         password="email"
-        placeholder="Enter password"
+        placeholder="Enter email"
         onChange={handleChange}
+        value={currUser.email}
       />
       <button>Save Changes</button>
     </form>

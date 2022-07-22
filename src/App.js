@@ -34,7 +34,11 @@ function App() {
         let userResult = await JoblyApi.getUserData(decoded.username, token);
         setCurrUser(userResult);
       }
-      fetchUserDataWithToken();
+      if (token !== "") {
+        fetchUserDataWithToken();
+      } else {
+        return;
+      }
     },
     [token]
   );
@@ -58,7 +62,7 @@ function App() {
   /** Logout a user and remove token. */
   function logout(evt) {
     evt.PreventDefault();
-    // handle click
+    setCurrUser({});
     setToken("");
   }
 
@@ -75,14 +79,27 @@ function App() {
     fetchTokenWithSignup(userData);
   }
 
+  /** editProfile takes user data changes user information to
+   * the newly inputted ones
+   */
+  function editProfile(userData) {
+    async function fetchEditProfile(userData) {
+      try {
+        let updatedUser = await JoblyApi.updateUser(userData);
+        setCurrUser(updatedUser);
+      } catch (err) {}
+    }
+    fetchEditProfile(userData);
+  }
+
   return (
     <div className="App">
       <header className="App-header">
         <userContext.Provider value={{ currUser }}>
           <BrowserRouter>
-            <Nav logout={logout} />
+            <Nav logout={logout} editProfile={editProfile} />
             <JoblyRoutes
-              // updateUser={updateUser}
+              editProfile={editProfile}
               login={login}
               signup={signup}
             />
