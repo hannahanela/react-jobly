@@ -17,12 +17,13 @@ import jwt_decode from "jwt-decode";
  *
  * App ->{Nav, JoblyRoutes}
  */
-const DEFAULT_USER = {};
+const DEFAULT_USER = "";
 
 function App() {
   //{useanme ; fstname ;lastname ;passpwrd ,email}
   const [currUser, setCurrUser] = useState(DEFAULT_USER);
   const [token, setToken] = useState("");
+  console.log("In App", "state:", currUser, token);
 
   //useEffect will change the user using the token ? to update user
   // TODO: username input value from form
@@ -38,9 +39,7 @@ function App() {
     [token]
   );
 
-  // TODO: PASS THESE TO APPROPRIATE FORMS
-  // using form input -> make API request
-  // set token
+  // FIXME: what's going on with our currUser context??
 
   /** Login a user and update token. */
 
@@ -76,7 +75,6 @@ function App() {
     fetchTokenWithSignup(userData);
   }
 
-  console.log("In App");
   return (
     <div className="App">
       <header className="App-header">

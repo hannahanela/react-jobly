@@ -1,5 +1,7 @@
 import "./App.css";
 import React from "react";
+import { useContext } from "react";
+import userContext from "./userContext";
 
 /** Homepage : it renders a welcome homepage
  *
@@ -8,11 +10,22 @@ import React from "react";
 
 function Homepage() {
   console.log("In Homepage");
+  const { currUser } = useContext(userContext);
 
   return (
     <div>
-      <h1>Welcome to Jobly</h1>
-      <h1> welcome {</h1>
+      {currUser ? (
+        <div>
+          <h1>Jobly</h1>
+          <h2>All the jobs in one, convenient place.</h2>
+          <h1> Welcome back, {currUser.firstName} </h1>
+        </div>
+      ) : (
+        <div>
+          <h1>Jobly</h1>
+          <h2>All the jobs in one, convenient place.</h2>
+        </div>
+      )}
     </div>
   );
 }
