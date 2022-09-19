@@ -9,6 +9,8 @@ import jwt_decode from "jwt-decode";
 
 const DEFAULT_USER = null;
 
+/** comment */
+
 /** App : handles rendering the navigation bar
  *
  *  State:
