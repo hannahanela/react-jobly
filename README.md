@@ -1,3 +1,15 @@
+# Jobly
+
+Jobly is a job listing single page React application with authentication and search functionality. A user registers or logs in and receives a personalized login confirmation message and private routes accessible only through authentication. Users can browse all job listings and companies, as well as search by company name or job title.
+
+## Demo Available
+
+You can visit a [demo of the site](https://r26-hannah-jobly.surge.sh/) and login with these credentials:
+
+username: TestUser
+
+password: password
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
