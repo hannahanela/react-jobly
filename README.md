@@ -10,6 +10,10 @@ username: TestUser
 
 password: password
 
+## Component Hierarchy
+
+![Flow chart of Jobly app's component hierarchy](https://user-images.githubusercontent.com/65831450/198402064-81ee03fc-7e01-431a-b43c-307a8c8831df.jpg)
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
