@@ -16,9 +16,9 @@ password: password
 
 ## Developer Environment Setup
 
-This project requires the Express backend to be downloaded and running on a server. Please visit the [express-jobly-solution respository]() and follow setup in a separate directory.
+This project requires the Express backend to be downloaded and running on a server. Please visit the [express-jobly-solution respository]() and follow setup.
 
-In your front end directory, install dependencies:
+In your directory, install dependencies:
 
 `npm install`
 
