@@ -1,29 +1,34 @@
 import React from "react";
-import "./JobCard";
+import Card from "react-bootstrap/Card";
 
 /** JobCard: displays job details.
- * 
+ *
  *  Prop:
  *  - job: {title, salary, equity, companyName} or {title, salary, equity}
- * 
+ *
  *  JobCardList -> JobCard
  */
 function JobCard({ job }) {
+
   return (
-    <div>
+    <div className="JobCard my-4">
       {job.companyName === undefined ? (
-        <div className="job-card">
-          <h2>{job.title}</h2>
-          <h6> Salary: {job.salary}</h6>
-          <h6>Equity: {job.equity}</h6>
-        </div>
+        <Card bg="dark">
+          <Card.Body className="m-1">
+            <Card.Title className="p-1">{job.title}</Card.Title>
+            <Card.Text className="p-1">Salary: {job.salary}</Card.Text>
+            <Card.Text className="p-1">Equity: {job.equity}</Card.Text>
+          </Card.Body>
+        </Card>
       ) : (
-        <div>
-          <h2>{job.title}</h2>
-          <h2>{job.companyName}</h2>
-          <h6>Salary: {job.salary}</h6>
-          <h6>Equity :{job.equity}</h6>
-        </div>
+        <Card bg="dark">
+          <Card.Body className="m-1">
+            <Card.Title className="p-1">{job.title}</Card.Title>
+            <Card.Subtitle className="p-1">{job.companyName}</Card.Subtitle>
+            <Card.Text className="p-1">Salary: {job.salary}</Card.Text>
+            <Card.Text className="p-1">Equity: {job.equity}</Card.Text>
+          </Card.Body>
+        </Card>
       )}
     </div>
   );

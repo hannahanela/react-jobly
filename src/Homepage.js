@@ -1,7 +1,6 @@
-import "./App.css";
-import React from "react";
-import { useContext } from "react";
+import React, { useContext } from "react";
 import userContext from "./userContext";
+import "./Homepage.css";
 
 /** Homepage : it renders a welcome homepage
  *
@@ -13,17 +12,16 @@ function Homepage() {
   const { currUser } = useContext(userContext);
 
   return (
-    <div>
-      {currUser ? (
-        <div>
-          <h1>Jobly</h1>
-          <h2>All the jobs in one, convenient place.</h2>
-          <h1> Welcome back, {currUser.firstName} </h1>
+    <div className="Homepage text-center">
+      <h1 className="display-1">Jobly</h1>
+      {currUser.isLoggedIn ? (
+        <div className="homepage-headers">
+          <h2 className="lead">All the jobs in one, convenient place.</h2>
+          <h2> Welcome back, {currUser.data.firstName} </h2>
         </div>
       ) : (
-        <div>
-          <h1>Jobly</h1>
-          <h2>All the jobs in one, convenient place.</h2>
+        <div className="homepage-headers">
+          <h2 className="lead">All the jobs in one, convenient place.</h2>
         </div>
       )}
     </div>

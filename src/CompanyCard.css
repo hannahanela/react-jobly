@@ -1,19 +1,19 @@
-div{
-    width: 700px;
-    height: 200px;
-    background-color: lightgray;
+.CompanyCardLink {
     color: black;
-    margin-left: auto;
-    margin-right: auto;
-
-}
-
-a {
     text-decoration: none;
 }
 
-.company-card{
+.CompanyCardLink:hover {
+    color: black;
+    opacity: 0.9;
+}
 
-    height: 400px;
+.card {
+    color: #E9E9E9 !important;
+    opacity: 90%;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
 
+.card-img {
+    max-width: 150px;
 }

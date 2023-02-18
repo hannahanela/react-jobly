@@ -1,8 +1,10 @@
-import React, { useState } from "react";
-import { useContext } from "react";
+import React, { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import userContext from "./userContext";
 import Alert from "./Alert";
-import { useNavigate } from "react-router-dom";
+import Card from "react-bootstrap/Card";
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
 
 /** ProfileForm: renders basic Profile box.
  * //TODO: update docstring formdata
@@ -22,7 +24,7 @@ import { useNavigate } from "react-router-dom";
 function ProfileForm({ editProfile }) {
   const navigate = useNavigate();
   const { currUser } = useContext(userContext);
-  const initialState = currUser;
+  const initialState = currUser.data;
   const [formData, setFormData] = useState(initialState);
   const [error, setError] = useState([]);
 
@@ -51,35 +53,56 @@ function ProfileForm({ editProfile }) {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        name="username"
-        placeholder="Enter username"
-        value={formData.username}
-        onChange={handleChange}
-        disabled="disabled"
-      />
-      <input
-        name="firstName"
-        placeholder="Enter first name"
-        value={formData.firstName}
-        onChange={handleChange}
-      />
-      <input
-        name="lastName"
-        placeholder="Enter last name"
-        onChange={handleChange}
-        value={formData.lastName}
-      />
-      <input
-        name="email"
-        placeholder="Enter email"
-        value={formData.email}
-        onChange={handleChange}
-      />
-      {error.length !== 0 && <Alert error={error} />}
-      <button>Save Changes</button>
-    </form>
+    <div className="ProfileForm">
+      <div className="container col-md-6">
+        <h2 className="display-2 mb-4">Profile</h2>
+        <Card bg="dark">
+          <Form className="row m-3" onSubmit={handleSubmit}>
+            <Form.Group className="mt-2 mb-3">
+              <Form.Label>Username</Form.Label>
+              <Form.Control
+                name="username"
+                placeholder="Enter username"
+                value={formData.username}
+                onChange={handleChange}
+                disabled="disabled"
+              />
+            </Form.Group>
+            <Form.Group className="mt-2 mb-3">
+              <Form.Label>First Name</Form.Label>
+              <Form.Control
+                name="firstName"
+                placeholder="Enter first name"
+                value={formData.firstName}
+                onChange={handleChange}
+              />
+            </Form.Group>
+            <Form.Group className="mt-2 mb-3">
+              <Form.Label>Last Name</Form.Label>
+              <Form.Control
+                name="lastName"
+                placeholder="Enter last name"
+                value={formData.lastName}
+                onChange={handleChange}
+              />
+            </Form.Group>
+            <Form.Group className="mt-2 mb-3">
+              <Form.Label>Email</Form.Label>
+              <Form.Control
+                name="email"
+                placeholder="Enter email"
+                value={formData.email}
+                onChange={handleChange}
+              />
+            </Form.Group>
+            {error.length !== 0 && <Alert error={error} />}
+            <div className="mt-3 mb-2">
+              <Button variant="custom" type="submit">Submit</Button>
+            </div>
+          </Form>
+        </Card>
+      </div>
+    </div>
   );
 }
 

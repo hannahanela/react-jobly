@@ -39,9 +39,9 @@ function CompanyDetails() {
 
   return (
     <div>
-      <div>
-        <h1>{companyData.data.name}</h1>
-        <h1>{companyData.data.description}</h1>
+      <div className="CompanyDetails">
+        <h2 className="display-2">{companyData.data.name}</h2>
+        <h3 className="lead">{companyData.data.description}</h3>
       </div>
       <JobCardList jobs={companyData.data.jobs} />
     </div>

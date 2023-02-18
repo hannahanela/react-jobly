@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Alert from "./Alert";
+import Card from "react-bootstrap/Card";
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
 
 /** loginForm: renders basic login box.
  *
@@ -39,6 +42,7 @@ function LoginForm({ login }) {
       await login(formData.username, formData.password);
       setFormData(initialState);
       navigate("/companies");
+      console.log("passed navigate to /companies");
     } catch (err) {
       console.log("err=", err);
       setError(err);
@@ -46,24 +50,37 @@ function LoginForm({ login }) {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        name="username"
-        placeholder="Enter username"
-        onChange={handleChange}
-        value={formData.username}
-      />
-      <input
-        name="password"
-        password="password"
-        type="password"
-        placeholder="Enter password"
-        onChange={handleChange}
-        value={formData.password}
-      />
-      {error.length !== 0 && <Alert error={error} />}
-      <button>Submit</button>
-    </form>
+    <div className="LoginForm">
+      <div className="container col-md-6">
+        <h2 className="display-2 mb-4">Login</h2>
+        <Card bg="dark">
+          <Form className="row m-3" onSubmit={handleSubmit}>
+            <Form.Group className="mt-2 mb-3">
+              <Form.Label>Username</Form.Label>
+              <Form.Control
+                name="username"
+                placeholder="Enter username"
+                onChange={handleChange}
+                value={formData.username}
+              />
+            </Form.Group>
+            <Form.Group className="mt-2 mb-3">
+              <Form.Label>Password</Form.Label>
+              <Form.Control
+                name="password"
+                placeholder="Enter password"
+                onChange={handleChange}
+                value={formData.password}
+              />
+            </Form.Group>
+            {error.length !== 0 && <Alert error={error} />}
+            <div className="mt-3 mb-2">
+              <Button variant="custom" type="submit">Submit</Button>
+            </div>
+          </Form>
+        </Card>
+      </div>
+    </div>
   );
 }
 

@@ -1,5 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Card from "react-bootstrap/Card";
+import "./CompanyCard.css"
 
 /** CompanyCard: renders a single company's information
  *
@@ -11,21 +13,24 @@ import { Link } from "react-router-dom";
  */
 
 function CompanyCard({ company }) {
-  // console.log("In CompanyCard");
+  console.log("In CompanyCard");
 
   return (
-    <Link to={`/companies/${company.handle}`}>
-      <div className="company-card">
-        {company.logoUrl ? (
-          <img src={company.logoUrl} alt={company.name}></img>
-        ) : (
-          <span></span>
-        )}
-
-        <h1>{company.name}</h1>
-        <p>{company.description}</p>
-      </div>
-    </Link>
+    <div className="CompanyCard">
+      <Link className="CompanyCardLink" to={`/companies/${company.handle}`}>
+        <Card className="my-4" bg="dark">
+          <Card.Body className="m-1">
+            {company.logoUrl ? (
+              <Card.Img className="p-1" src={company.logoUrl} alt={company.name}></Card.Img>
+            ) : (
+              <span></span>
+            )}
+            <Card.Title className="p-1">{company.name}</Card.Title>
+            <Card.Text className="p-1">{company.description}</Card.Text>
+          </Card.Body>
+        </Card>
+      </Link>
+    </div>
   );
 }
 

@@ -1,6 +1,10 @@
 import React, { useState } from "react";
-import Alert from "./Alert";
 import { useNavigate } from "react-router-dom";
+import Alert from "./Alert";
+import Card from "react-bootstrap/Card";
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
+import "./SignupForm.css";
 
 /** SearchForm: renders basic search box.
  *
@@ -46,32 +50,60 @@ function SignupForm({ signup }) {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        name="username"
-        placeholder="Enter username"
-        onChange={handleChange}
-      />
-      <input
-        name="password"
-        placeholder="Enter password"
-        type="password"
-        onChange={handleChange}
-      />
-      <input
-        name="firstName"
-        placeholder="Enter first name"
-        onChange={handleChange}
-      />
-      <input
-        name="lastName"
-        placeholder="Enter last name"
-        onChange={handleChange}
-      />
-      <input name="email" placeholder="Enter email" onChange={handleChange} />
-      {error.length !== 0 && <Alert error={error} />}
-      <button>Submit</button>
-    </form>
+    <div className="SignupForm">
+      <div className="container col-md-6">
+        <h2 className="display-2 mb-4">Sign Up</h2>
+        <Card bg="dark">
+          <Form className="row m-3" onSubmit={handleSubmit}>
+            <Form.Group className="mt-2 mb-3">
+              <Form.Label className="">Username</Form.Label>
+              <Form.Control
+                name="username"
+                placeholder="Enter username"
+                onChange={handleChange}
+              />
+            </Form.Group>
+            <Form.Group className="mt-2 mb-3">
+              <Form.Label>Password</Form.Label>
+              <Form.Control
+                name="password"
+                type="password"
+                placeholder="Enter password"
+                onChange={handleChange}
+              />
+            </Form.Group>
+            <Form.Group className="mt-2 mb-3">
+              <Form.Label>First Name</Form.Label>
+              <Form.Control
+                name="firstName"
+                placeholder="Enter first name"
+                onChange={handleChange}
+              />
+            </Form.Group>
+            <Form.Group className="mt-2 mb-3">
+              <Form.Label>Last Name</Form.Label>
+              <Form.Control
+                name="lastName"
+                placeholder="Enter last name"
+                onChange={handleChange}
+              />
+            </Form.Group>
+            <Form.Group className="mt-2 mb-3">
+              <Form.Label>Email</Form.Label>
+              <Form.Control
+                name="email"
+                placeholder="Enter email"
+                onChange={handleChange}
+              />
+            </Form.Group>
+            {error.length !== 0 && <Alert error={error} />}
+            <div className="mt-3 mb-2">
+              <Button variant="custom" type="submit">Submit</Button>
+            </div>
+          </Form>
+        </Card>
+      </div>
+    </div>
   );
 }
 

@@ -1,4 +1,5 @@
 import React from "react";
+import "./Alert.css";
 
 /** Alert: displays error messages for incorrect form inputs.
  *
@@ -10,10 +11,12 @@ import React from "react";
 function Alert({ error }) {
   return (
     // TODO: assuming all errors are red
-    <div className="alert alert-danger">
-      {error.map((e, idx) => (
-        <p key={idx}>{e}</p>
-      ))}
+    <div className="Alert mt-3">
+      <div className="alert alert-danger">
+        {error.map((e, idx) => (
+          <p key={idx}>{e}</p>
+        ))}
+      </div>
     </div>
   );
 }

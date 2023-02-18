@@ -12,27 +12,57 @@ import userContext from "./userContext";
  */
 
 function Nav({ logout }) {
-  console.log("In Nav");
   const { currUser } = useContext(userContext);
-
+  console.log("In Nav", currUser);
+  //TODO: dosen't work when invalid username/password is submitted
   return (
-    <div>
-      <nav className="NavBar">
-        {currUser ? (
-          <div>
-            <NavLink to={`/`}> Jobly </NavLink>
-            <NavLink to={`/companies`}> Companies</NavLink>
-            <NavLink to={`/jobs`}> Jobs </NavLink>
-            <NavLink to={`/profile`}> Profile </NavLink>
-            <NavLink to={`/`} onClick={logout}>
-              Log out {currUser.username}
-            </NavLink>
+    <div className="Nav navbar navbar-expand-sm">
+      <nav>
+        {currUser.data !== null ? (
+          <div className="container-fluid">
+            <ul className="navbar-nav">
+              <NavLink className="navbar-brand" to={`/`}>
+                Jobly
+              </NavLink>
+              <li className="nav-item">
+                <NavLink className="nav-link" to={`/companies`}>
+                  Companies
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink className="nav-link" to={`/jobs`}>
+                  Jobs
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink className="nav-link" to={`/profile`}>
+                  Profile
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink className="nav-link" to={`/`} onClick={logout}>
+                  Log out {currUser.data.username}
+                </NavLink>
+              </li>
+            </ul>
           </div>
         ) : (
-          <div>
-            <NavLink to={`/`}> Jobly </NavLink>
-            <NavLink to={`/login`}>Login</NavLink>
-            <NavLink to={`/signup`}>Signup</NavLink>
+          <div className="container-fluid">
+            <ul className="navbar-nav">
+              <NavLink className="navbar-brand" to={`/`}>
+                Jobly
+              </NavLink>
+              <li className="nav-item">
+                <NavLink className="nav-link" to={`/login`}>
+                  Login
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink className="nav-link" to={`/signup`}>
+                  Signup
+                </NavLink>
+              </li>
+            </ul>
           </div>
         )}
       </nav>

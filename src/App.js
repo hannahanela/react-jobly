@@ -1,45 +1,51 @@
-import "./App.css";
 import React, { useEffect, useState } from "react";
+import { BrowserRouter } from "react-router-dom";
 import Nav from "./Nav";
 import JoblyRoutes from "./JoblyRoutes";
-import { BrowserRouter } from "react-router-dom";
 import userContext from "./userContext";
 import JoblyApi from "./api";
 import jwt_decode from "jwt-decode";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-const DEFAULT_USER = null;
+const DEFAULT_USER = { data: null, isLoggedIn: false };
 
 /** App : handles rendering the navigation bar
  *
  *  State:
- *  - currUser: { username, firstName, lastName, isAdmin, jobs }
+ *  - currUser: { data:{username, firstName, lastName, isAdmin, jobs}, isLoggedIn }
  *        where jobs is { id, title, companyHandle, companyName, state }
  *  - token
  *
  *  Context:
- *  - userData: first name, username, apply/applied
+ *  - currUser
  *
  * App ->{Nav, JoblyRoutes}
  */
 
 function App() {
   const [currUser, setCurrUser] = useState(DEFAULT_USER);
-  console.log("In App", "state:", currUser);
-  let token = localStorage.getItem("token");
-  console.log("token in localStorage=", token);
+  const [token, setToken] = useState(
+    localStorage.getItem("token")
+  );
+  console.log("In App", "state:", currUser, token);
 
   useEffect(
     function getUserDataWithToken() {
       async function fetchUserDataWithToken() {
-        // TODO: destructure decoded {username}
         const storedToken = localStorage.getItem("token");
-        let decoded = jwt_decode(storedToken);
+        let { username } = jwt_decode(storedToken);
         let userResult = await JoblyApi.getUserData(
-          decoded.username,
+          username,
           storedToken
         );
-        setCurrUser(userResult);
+
+        setCurrUser((currUser) => ({
+          ...currUser,
+          data: userResult,
+          isLoggedIn: true,
+        }));
       }
+      // try localStorage.getItem("token" !== undefined)
       if (token !== undefined) {
         fetchUserDataWithToken();
       }
@@ -48,13 +54,18 @@ function App() {
   );
 
   /** Login a user and update token. */
-
   async function login(username, password) {
+    console.log("entered login");
     let newToken = await JoblyApi.getTokenForCurrUser(username, password);
+    console.log("newToken=", newToken);
     localStorage.setItem("token", `${newToken}`);
-    console.log("token?", localStorage.getItem("token"));
-    // TODO: original code w/ token state
-    // setToken(newToken);
+    // token = localStorage.getItem("token");
+    // console.log("token=", token);
+    setToken(newToken);
+    setCurrUser((currUser) => ({
+      ...currUser,
+      isLoggedIn: true,
+    }));
   }
 
   /** Logout a user and remove token. */
@@ -62,10 +73,13 @@ function App() {
     console.log("INSIDE LOGOUT!!!!");
     evt.preventDefault();
     localStorage.setItem("token", undefined);
+    setToken(undefined);
     console.log("remove token?", localStorage.getItem("token"));
-    // TODO: original code w/ token state
-    // setToken('');
-    setCurrUser(DEFAULT_USER);
+    setCurrUser((currUser) => ({
+      ...currUser,
+      data: null,
+      isLoggedIn: false,
+    }));
   }
 
   /** Signup a new user and update token. */
@@ -73,8 +87,7 @@ function App() {
   async function signup(userData) {
     let newToken = await JoblyApi.getTokenForNewUser(userData);
     localStorage.setItem("token", `${newToken}`);
-    // TODO: original code w/ token state
-    // setToken(newToken);
+    setToken(newToken);
   }
 
   /** editProfile takes user data changes user information to
@@ -83,20 +96,30 @@ function App() {
   async function editProfile(userData) {
     const storedToken = localStorage.getItem("token");
     let updatedUser = await JoblyApi.updateUser(userData, storedToken);
+
+    //TODO: when updating user make sure to updated correctly using
+    // the callback pattern.
     setCurrUser(updatedUser);
+    // setCurrUser((currUser) => ({
+    //   ...currUser,
+    //   ...updatedUser,
+    // }));
   }
+
 
   return (
     <div className="App">
       <header className="App-header">
-        <userContext.Provider value={{ currUser }}>
+        <userContext.Provider value={{ currUser, token }}>
           <BrowserRouter>
             <Nav logout={logout} editProfile={editProfile} />
-            <JoblyRoutes
-              editProfile={editProfile}
-              login={login}
-              signup={signup}
-            />
+            <div className="container px-5 mb-5">
+              <JoblyRoutes
+                editProfile={editProfile}
+                login={login}
+                signup={signup}
+              />
+            </div>
           </BrowserRouter>
         </userContext.Provider>
       </header>
