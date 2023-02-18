@@ -9,15 +9,15 @@ import "./Homepage.css";
 
 function Homepage() {
   console.log("In Homepage");
-  const { currUser } = useContext(userContext);
+  const { currentUser } = useContext(userContext);
 
   return (
     <div className="Homepage text-center">
       <h1 className="display-1">Jobly</h1>
-      {currUser.isLoggedIn ? (
+      {currentUser.isLoggedIn ? (
         <div className="homepage-headers">
           <h2 className="lead">All the jobs in one, convenient place.</h2>
-          <h2> Welcome back, {currUser.data.firstName} </h2>
+          <h2> Welcome back, {currentUser.data.firstName} </h2>
         </div>
       ) : (
         <div className="homepage-headers">

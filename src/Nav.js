@@ -12,8 +12,8 @@ import userContext from "./userContext";
  */
 
 function Nav({ logout }) {
-  const { currUser } = useContext(userContext);
-  console.debug("<Nav>", currUser);
+  const { currentUser } = useContext(userContext);
+  console.debug("<Nav>", currentUser);
 
   function loggedIn(user) {
     return (
@@ -72,8 +72,8 @@ function Nav({ logout }) {
   return (
     <div className="Nav navbar navbar-expand-sm">
       <nav>
-        {currUser.data !== null ? (
-          loggedIn(currUser.data)
+        {currentUser.data !== null ? (
+          loggedIn(currentUser.data)
         ) : (
           loggedOut()
         )}

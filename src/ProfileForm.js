@@ -12,19 +12,19 @@ import Button from "react-bootstrap/Button";
  *  = errors : an array of error messages
  *
  *  Props:
- *  - editProfile fn: calls parent function to update currUser using an
+ *  - editProfile fn: calls parent function to update currentUser using an
  *    API request
  *
  *  context:
- *  - currUser : currently logged in user (object)
+ *  - currentUser : currently logged in user (object)
  *
  *  { CompanyList, JobList } -> ProfileForm
  */
 
 function ProfileForm({ editProfile }) {
   const navigate = useNavigate();
-  const { currUser } = useContext(userContext);
-  const initialState = currUser.data;
+  const { currentUser } = useContext(userContext);
+  const initialState = currentUser.data;
   const [formData, setFormData] = useState(initialState);
   const [errors, setErrors] = useState([]);
 
