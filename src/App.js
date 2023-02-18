@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { BrowserRouter } from "react-router-dom";
 import Nav from "./Nav";
-import JoblyRoutes from "./JoblyRoutes";
+import RoutesList from "./RoutesList";
 import userContext from "./userContext";
 import JoblyApi from "./api";
 import jwt_decode from "jwt-decode";
@@ -19,7 +19,7 @@ const DEFAULT_USER = { data: null, isLoggedIn: false };
  *  Context:
  *  - currUser
  *
- * App ->{Nav, JoblyRoutes}
+ * App ->{Nav, RoutesList}
  */
 
 function App() {
@@ -114,7 +114,7 @@ function App() {
           <BrowserRouter>
             <Nav logout={logout} editProfile={editProfile} />
             <div className="container px-5 mb-5">
-              <JoblyRoutes
+              <RoutesList
                 editProfile={editProfile}
                 login={login}
                 signup={signup}
