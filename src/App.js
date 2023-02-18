@@ -12,43 +12,54 @@ const DEFAULT_USER = { data: null, isLoggedIn: false };
 /** App : handles rendering the navigation bar
  *
  *  State:
- *  - currUser: { data:{username, firstName, lastName, isAdmin, jobs}, isLoggedIn }
+ *  - currentUser: { data:{username, firstName, lastName, isAdmin, jobs}, isLoggedIn }
  *        where jobs is { id, title, companyHandle, companyName, state }
  *  - token
  *
  *  Context:
- *  - currUser
+ *  - currentUser
  *
  * App ->{Nav, RoutesList}
  */
-
 function App() {
-  const [currUser, setCurrUser] = useState(DEFAULT_USER);
+  const [currentUser, setCurrentUser] = useState(DEFAULT_USER);
   const [token, setToken] = useState(
     localStorage.getItem("token")
   );
-  console.log("In App", "state:", currUser, token);
+  console.log("In App", "state:", currentUser, token);
 
   useEffect(
-    function getUserDataWithToken() {
-      async function fetchUserDataWithToken() {
-        const storedToken = localStorage.getItem("token");
-        let { username } = jwt_decode(storedToken);
-        let userResult = await JoblyApi.getUserData(
-          username,
-          storedToken
-        );
+    function loadUserData() {
+      async function getCurrentUser() {
+        if (token) {
+          try {
+            const storedToken = localStorage.getItem("token");
+            let { username } = jwt_decode(storedToken);
+            let userResult = await JoblyApi.getUserData(
+              username,
+              storedToken
+            );
 
-        setCurrUser((currUser) => ({
-          ...currUser,
-          data: userResult,
-          isLoggedIn: true,
-        }));
+            setCurrentUser((currentUser) => ({
+              ...currentUser,
+              data: userResult,
+              isLoggedIn: true
+            }));
+          } catch(err) {
+            console.error("Problem loading", err);
+            setCurrentUser({
+              data: null,
+              isLoggedIn: false
+            });
+          }
+        } else {
+          setCurrentUser({
+            data: null,
+            isLoggedIn: false
+          });
+        }
       }
-      // try localStorage.getItem("token" !== undefined)
-      if (token !== undefined) {
-        fetchUserDataWithToken();
-      }
+      getCurrentUser();
     },
     [token]
   );
@@ -56,14 +67,14 @@ function App() {
   /** Login a user and update token. */
   async function login(username, password) {
     console.log("entered login");
-    let newToken = await JoblyApi.getTokenForCurrUser(username, password);
+    let newToken = await JoblyApi.getTokenForCurrentUser(username, password);
     console.log("newToken=", newToken);
     localStorage.setItem("token", `${newToken}`);
     // token = localStorage.getItem("token");
     // console.log("token=", token);
     setToken(newToken);
-    setCurrUser((currUser) => ({
-      ...currUser,
+    setCurrentUser((currentUser) => ({
+      ...currentUser,
       isLoggedIn: true,
     }));
   }
@@ -75,8 +86,8 @@ function App() {
     localStorage.setItem("token", undefined);
     setToken(undefined);
     console.log("remove token?", localStorage.getItem("token"));
-    setCurrUser((currUser) => ({
-      ...currUser,
+    setCurrentUser((currentUser) => ({
+      ...currentUser,
       data: null,
       isLoggedIn: false,
     }));
@@ -94,17 +105,16 @@ function App() {
   async function editProfile(userData) {
     const storedToken = localStorage.getItem("token");
     let updatedUser = await JoblyApi.updateUser(userData, storedToken);
-    setCurrUser((currUser) => ({
-      ...currUser,
+    setCurrentUser((currentUser) => ({
+      ...currentUser,
       data: updatedUser,
     }));
   }
 
-
   return (
     <div className="App">
       <header className="App-header">
-        <userContext.Provider value={{ currUser, token }}>
+        <userContext.Provider value={{ currentUser, token }}>
           <BrowserRouter>
             <Nav logout={logout} />
             <div className="container px-5 mb-5">
