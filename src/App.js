@@ -90,20 +90,14 @@ function App() {
     setToken(newToken);
   }
 
-  /** editProfile takes user data changes user information to
-   * the newly inputted ones
-   */
+  /** Edit a user's profile information. */
   async function editProfile(userData) {
     const storedToken = localStorage.getItem("token");
     let updatedUser = await JoblyApi.updateUser(userData, storedToken);
-
-    //TODO: when updating user make sure to updated correctly using
-    // the callback pattern.
-    setCurrUser(updatedUser);
-    // setCurrUser((currUser) => ({
-    //   ...currUser,
-    //   ...updatedUser,
-    // }));
+    setCurrUser((currUser) => ({
+      ...currUser,
+      data: updatedUser,
+    }));
   }
 
 
@@ -112,7 +106,7 @@ function App() {
       <header className="App-header">
         <userContext.Provider value={{ currUser, token }}>
           <BrowserRouter>
-            <Nav logout={logout} editProfile={editProfile} />
+            <Nav logout={logout} />
             <div className="container px-5 mb-5">
               <RoutesList
                 editProfile={editProfile}
