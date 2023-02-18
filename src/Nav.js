@@ -13,57 +13,69 @@ import userContext from "./userContext";
 
 function Nav({ logout }) {
   const { currUser } = useContext(userContext);
-  console.log("In Nav", currUser);
-  //TODO: dosen't work when invalid username/password is submitted
+  console.debug("<Nav>", currUser);
+
+  function loggedIn(user) {
+    return (
+      <div className="container-fluid">
+        <ul className="navbar-nav">
+          <NavLink className="navbar-brand" to={`/`}>
+            Jobly
+          </NavLink>
+          <li className="nav-item">
+            <NavLink className="nav-link" to={`/companies`}>
+              Companies
+            </NavLink>
+          </li>
+          <li className="nav-item">
+            <NavLink className="nav-link" to={`/jobs`}>
+              Jobs
+            </NavLink>
+          </li>
+          <li className="nav-item">
+            <NavLink className="nav-link" to={`/profile`}>
+              Profile
+            </NavLink>
+          </li>
+          <li className="nav-item">
+            <NavLink className="nav-link" to={`/`} onClick={logout}>
+              Log out {user.username}
+            </NavLink>
+          </li>
+        </ul>
+      </div>
+    )
+  }
+
+  function loggedOut() {
+    return (
+      <div className="container-fluid">
+        <ul className="navbar-nav">
+          <NavLink className="navbar-brand" to={`/`}>
+            Jobly
+          </NavLink>
+          <li className="nav-item">
+            <NavLink className="nav-link" to={`/login`}>
+              Login
+            </NavLink>
+          </li>
+          <li className="nav-item">
+            <NavLink className="nav-link" to={`/signup`}>
+              Signup
+            </NavLink>
+          </li>
+        </ul>
+      </div>
+    )
+  }
+
   return (
     <div className="Nav navbar navbar-expand-sm">
       <nav>
         {currUser.data !== null ? (
-          <div className="container-fluid">
-            <ul className="navbar-nav">
-              <NavLink className="navbar-brand" to={`/`}>
-                Jobly
-              </NavLink>
-              <li className="nav-item">
-                <NavLink className="nav-link" to={`/companies`}>
-                  Companies
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink className="nav-link" to={`/jobs`}>
-                  Jobs
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink className="nav-link" to={`/profile`}>
-                  Profile
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink className="nav-link" to={`/`} onClick={logout}>
-                  Log out {currUser.data.username}
-                </NavLink>
-              </li>
-            </ul>
-          </div>
+          loggedIn(currUser.data)
         ) : (
-          <div className="container-fluid">
-            <ul className="navbar-nav">
-              <NavLink className="navbar-brand" to={`/`}>
-                Jobly
-              </NavLink>
-              <li className="nav-item">
-                <NavLink className="nav-link" to={`/login`}>
-                  Login
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink className="nav-link" to={`/signup`}>
-                  Signup
-                </NavLink>
-              </li>
-            </ul>
-          </div>
+          loggedOut()
         )}
       </nav>
     </div>
