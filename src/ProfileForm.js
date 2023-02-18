@@ -9,7 +9,7 @@ import Button from "react-bootstrap/Button";
 /** ProfileForm: renders basic Profile box.
  * //TODO: update docstring formdata
  * states:
- *  = error : an array of error messages
+ *  = errors : an array of error messages
  *
  *  Props:
  *  - editProfile fn: calls parent function to update currUser using an
@@ -26,7 +26,7 @@ function ProfileForm({ editProfile }) {
   const { currUser } = useContext(userContext);
   const initialState = currUser.data;
   const [formData, setFormData] = useState(initialState);
-  const [error, setError] = useState([]);
+  const [errors, setErrors] = useState([]);
 
   console.log("In ProfileForm", "State:", formData);
 
@@ -48,7 +48,10 @@ function ProfileForm({ editProfile }) {
       await editProfile(formData);
       navigate("/");
     } catch (err) {
-      setError(err);
+      setErrors((errors) => ([
+        ...errors,
+        ...err
+      ]));
     }
   }
 
@@ -95,7 +98,7 @@ function ProfileForm({ editProfile }) {
                 onChange={handleChange}
               />
             </Form.Group>
-            {error.length !== 0 && <Alert error={error} />}
+            {errors.length !== 0 && <Alert errors={errors} />}
             <div className="mt-3 mb-2">
               <Button variant="custom" type="submit">Submit</Button>
             </div>

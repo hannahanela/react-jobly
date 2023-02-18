@@ -21,8 +21,8 @@ function LoginForm({ login }) {
   const navigate = useNavigate();
   const initialState = { username: "", password: "" };
   const [formData, setFormData] = useState(initialState);
-  const [error, setError] = useState([]);
-  console.log("In LoginForm", "State:", formData, error);
+  const [errors, setErrors] = useState([]);
+  console.log("In LoginForm", "State:", formData, errors);
 
   /**handelChange : updates form input  */
   function handleChange(evt) {
@@ -42,10 +42,11 @@ function LoginForm({ login }) {
       await login(formData.username, formData.password);
       setFormData(initialState);
       navigate("/companies");
-      console.log("passed navigate to /companies");
     } catch (err) {
-      console.log("err=", err);
-      setError(err);
+      setErrors((errors) => ([
+        ...errors,
+        ...err
+      ]));
     }
   }
 
@@ -74,7 +75,7 @@ function LoginForm({ login }) {
                 value={formData.password}
               />
             </Form.Group>
-            {error.length !== 0 && <Alert error={error} />}
+            {errors.length !== 0 && <Alert errors={errors} />}
             <div className="mt-3 mb-2">
               <Button variant="custom" type="submit">Submit</Button>
             </div>

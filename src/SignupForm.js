@@ -9,7 +9,7 @@ import "./SignupForm.css";
 /** SearchForm: renders basic search box.
  *
  *  States:
- *  = error : an array of error messages
+ *  = errors : an array of s messages
  *  - formData :
  *
  *  Props:
@@ -23,7 +23,7 @@ function SignupForm({ signup }) {
   //TODO: update intialstate
   const initialState = {};
   const [formData, setFormData] = useState(initialState);
-  const [error, setError] = useState([]);
+  const [errors, setErrors] = useState([]);
   console.log("In SignUpForm", "State:", formData);
   console.log("in signupForm", "signup = ", signup);
 
@@ -45,7 +45,10 @@ function SignupForm({ signup }) {
       await signup(formData);
       navigate("/companies");
     } catch (err) {
-      setError(err);
+      setErrors((errors) => ([
+        ...errors,
+        ...err
+      ]));
     }
   }
 
@@ -96,7 +99,7 @@ function SignupForm({ signup }) {
                 onChange={handleChange}
               />
             </Form.Group>
-            {error.length !== 0 && <Alert error={error} />}
+            {errors.length !== 0 && <Alert errors={errors} />}
             <div className="mt-3 mb-2">
               <Button variant="custom" type="submit">Submit</Button>
             </div>

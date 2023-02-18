@@ -7,13 +7,13 @@ import "./Alert.css";
  *  - errors [ error messages ]
  *
  *  { LoginForm, ProfileForm, SignupForm } -> Alert
- */ //TODO: replace with errors
-function Alert({ error }) {
+ */
+function Alert({ errors }) {
   return (
     // TODO: assuming all errors are red
     <div className="Alert mt-3">
       <div className="alert alert-danger">
-        {error.map((e, idx) => (
+        {errors.map((e, idx) => (
           <p key={idx}>{e}</p>
         ))}
       </div>
