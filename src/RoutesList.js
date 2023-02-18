@@ -9,25 +9,25 @@ import SignupForm from "./SignupForm";
 import ProfileForm from "./ProfileForm";
 import userContext from "./userContext";
 
-/** JoblyRoutes: handles routes to the components in Jobly app
+/** RoutesList: handles routes to the components in Jobly app
  *
  *  Props:
  *  - login fn
  *  - signup fn
  *  - editProfile
  *
- * App -> JoblyRoutes -> {Homepage, CompanyList, CompanyDetails, JobList }
+ * App -> RoutesList -> {Homepage, CompanyList, CompanyDetails, JobList }
  */
 
 // TODO: redirect to same page when refreshing while logged in
 
-function JoblyRoutes({ login, signup, editProfile }) {
-  console.log("In JoblyRoutes");
+function RoutesList({ login, signup, editProfile }) {
+  console.log("In RoutesList");
   const { currUser, token } = useContext(userContext);
   
 
   return (
-    <div className="jobly-routes">
+    <div className="RoutesList">
       {currUser.isLoggedIn === true ? (
         <Routes>
           <Route path="/" element={<Homepage />} />
@@ -52,4 +52,4 @@ function JoblyRoutes({ login, signup, editProfile }) {
   );
 }
 
-export default JoblyRoutes;
+export default RoutesList;
