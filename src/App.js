@@ -66,12 +66,9 @@ function App() {
 
   /** Login a user and update token. */
   async function login(username, password) {
-    console.log("entered login");
     let newToken = await JoblyApi.getTokenForCurrentUser(username, password);
-    console.log("newToken=", newToken);
     localStorage.setItem("token", `${newToken}`);
-    // token = localStorage.getItem("token");
-    // console.log("token=", token);
+
     setToken(newToken);
     setCurrentUser((currentUser) => ({
       ...currentUser,
@@ -81,11 +78,10 @@ function App() {
 
   /** Logout a user and remove token. */
   function logout(evt) {
-    console.log("INSIDE LOGOUT!!!!");
     evt.preventDefault();
     localStorage.setItem("token", undefined);
+
     setToken(undefined);
-    console.log("remove token?", localStorage.getItem("token"));
     setCurrentUser((currentUser) => ({
       ...currentUser,
       data: null,
@@ -94,10 +90,10 @@ function App() {
   }
 
   /** Signup a new user and update token. */
-  // will be passed an object ******
   async function signup(userData) {
     let newToken = await JoblyApi.getTokenForNewUser(userData);
     localStorage.setItem("token", `${newToken}`);
+
     setToken(newToken);
   }
 
@@ -105,6 +101,7 @@ function App() {
   async function editProfile(userData) {
     const storedToken = localStorage.getItem("token");
     let updatedUser = await JoblyApi.updateUser(userData, storedToken);
+
     setCurrentUser((currentUser) => ({
       ...currentUser,
       data: updatedUser,
