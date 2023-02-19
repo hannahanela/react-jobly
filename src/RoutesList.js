@@ -23,12 +23,13 @@ import userContext from "./userContext";
 
 function RoutesList({ login, signup, editProfile }) {
   console.log("In RoutesList");
-  const { currentUser, token } = useContext(userContext);
+  const { currentUser } = useContext(userContext);
   
-
   return (
     <div className="RoutesList">
       <Routes>
+        <Route path="/" element={<Homepage />} />
+        
         {currentUser.isLoggedIn === false &&
         <>
           <Route path="/login" element={<LoginForm login={login} />}/>
@@ -44,33 +45,10 @@ function RoutesList({ login, signup, editProfile }) {
           <Route path="/profile" element={<ProfileForm editProfile={editProfile} />} />
         </>
         }
-        <Route path="/" element={<Homepage />} />
 
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </div>
-    // <div className="RoutesList">
-    //   {currentUser.isLoggedIn === true ? (
-    //     <Routes>
-    //       <Route path="/" element={<Homepage />} />
-    //       <Route
-    //         path="/profile"
-    //         element={<ProfileForm editProfile={editProfile} />}
-    //       />
-    //       <Route path="/companies" element={<CompanyList />} />
-    //       <Route path="/companies/:name" element={<CompanyDetails />} />
-    //       <Route path="/jobs" element={<JobList />} />
-    //       <Route path="*" element={<Navigate to="/" />} />
-    //     </Routes>
-    //   ) : (
-    //     <Routes>
-    //       <Route path="/" element={<Homepage />} />
-    //       <Route path="/login" element={<LoginForm login={login} />} />
-    //       <Route path="/signup" element={<SignupForm signup={signup} />} />
-    //       <Route path="*" element={<Navigate to="/" />} />
-    //     </Routes>
-    //   )}
-    // </div>
   );
 }
 
