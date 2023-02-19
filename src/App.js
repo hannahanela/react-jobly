@@ -110,7 +110,6 @@ function App() {
 
   return (
     <div className="App">
-      <header className="App-header">
         <userContext.Provider value={{ currentUser, token }}>
           <BrowserRouter>
             <Nav logout={logout} />
@@ -123,7 +122,6 @@ function App() {
             </div>
           </BrowserRouter>
         </userContext.Provider>
-      </header>
     </div>
   );
 }
