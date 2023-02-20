@@ -10,7 +10,7 @@ import "./CompanyCard.css";
  *  - companiesData: {data: [{ handle, name, description, numEmployees, logoUrl}
  *     , ...],isLoading }
  *
- *  JoblyRoutes -> CompanyList -> CompanyCard
+ *  RoutesList -> CompanyList -> CompanyCard
  */
 
 function CompanyList() {

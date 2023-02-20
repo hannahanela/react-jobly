@@ -16,7 +16,7 @@ import userContext from "./userContext";
  *  - signup fn
  *  - editProfile
  *
- * App -> RoutesList -> {Homepage, CompanyList, CompanyDetails, JobList }
+ * App -> RoutesList -> { Homepage, CompanyList, CompanyDetails, JobList }
  */
 
 // TODO: redirect to same page when refreshing while logged in

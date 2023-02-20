@@ -8,7 +8,7 @@ import JobCardList from "./JobCardList";
  *  State:
  *  - companyData: { data: {company}, isLoading }
  *
- * JoblyRoutes -> CompanyDetails -> JobCardList
+ * RoutesList -> CompanyDetails -> JobCardList
  *
  */
 function CompanyDetails() {

@@ -4,7 +4,7 @@ import "./Homepage.css";
 
 /** Homepage : it renders a welcome homepage
  *
- * JoblyRoutes -> Homepage
+ * RoutesList -> Homepage
  */
 
 function Homepage() {

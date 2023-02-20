@@ -14,7 +14,7 @@ import Button from "react-bootstrap/Button";
  *  Props:
  *  - login fn: calls parent function to filter API request
  *
- *  { CompanyList, JobList } -> loginForm
+ *  { CompanyList, JobList } -> LoginForm
  */
 
 function LoginForm({ login }) {

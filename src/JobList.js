@@ -8,7 +8,7 @@ import JobCardList from "./JobCardList";
  *  State:
  *  - jobs: {jobs: [ {job}, ...], isLoading}
  *
- *  JoblyRoutes -> JobList
+ *  RoutesList -> JobList
  */
 function JobList() {
   const [jobs, setJobs] = useState({

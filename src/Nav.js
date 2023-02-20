@@ -7,8 +7,8 @@ import userContext from "./userContext";
  *  Props:
  *  - logout fn
  *
- * App -> Nav -> {Homepage / , CompanyList /companies , JobsList /jobs
- *                SignupForm /signup, LoginForm /login, ProfileForm /profile}
+ * App -> Nav -> { Homepage / , CompanyList /companies , JobsList /jobs
+ *                SignupForm /signup, LoginForm /login, ProfileForm /profile }
  */
 
 function Nav({ logout }) {

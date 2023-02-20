@@ -12,14 +12,15 @@ const DEFAULT_USER = { data: null, isLoggedIn: false };
 /** App : handles rendering the navigation bar
  *
  *  State:
- *  - currentUser: { data:{username, firstName, lastName, isAdmin, jobs}, isLoggedIn }
+ *  - currentUser: user object used to determine if a user is logged in.
+ *      { data:{username, firstName, lastName, isAdmin, jobs}, isLoggedIn }
  *        where jobs is { id, title, companyHandle, companyName, state }
- *  - token
+ *  - token: authentication JWT for logged in users.
  *
  *  Context:
- *  - currentUser
+ *  - currentUser: user object from API.
  *
- * App ->{Nav, RoutesList}
+ * App ->{ Nav, RoutesList }
  */
 function App() {
   const [currentUser, setCurrentUser] = useState(DEFAULT_USER);
